@@ -1,0 +1,18 @@
+import urllib.request
+import pandas as pd
+csv_file = "Library_Usage.csv"
+for line in open(csv_file):
+    print(line)
+csv_file = pd.read_csv(csv_file)
+print(csv_file)
+csv_file.keys()
+#Aufgabe_1: Alle Nutzer in der Altergruppe der 0-9 Jährigen, welche in der Zentralbibliothek registriert sind. 
+Nutzergruppe = csv_file[csv_file["Age Range"] == "0 to 9 years"]
+Standort = csv_file[csv_file["Home Library Definition"] == "Main Library"]
+Mediennutzung_Nutzergruppe = pd.merge(Nutzergruppe, Standort)
+Mediennutzung_Nutzergruppe.head()
+#Aufgabe_2: Alle Nutzer der Nutzergruppe SENIOREN, welche mindestens eine Ausleihe getätigt haben.
+Nutzergruppe_2 = csv_file[csv_file["Patron Type Definition"] == "SENIOR"]
+Ausleihen = csv_file[csv_file["Total Checkouts"] >= 1]
+Nutzergruppe_2_Ausleihen = pd.merge(Nutzergruppe_2, Ausleihen)
+Nutzergruppe_2_Ausleihen.head()
